@@ -1,35 +1,27 @@
-# syntax=docker/dockerfile:1
+FROM eclipse-temurin:17-jdk-jammy as builder
 
-FROM eclipse-temurin:17-jdk-jammy as deps
+RUN addgroup demogroup; adduser  --ingroup demogroup --disabled-password demo
+USER demo
 
-WORKDIR /build
-
-COPY --chmod=0755 mvnw mvnw
-COPY .mvn/ .mvn/
-
-RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-    --mount=type=cache,target=D:/Deps ./mvnw dependency:go-offline -DskipTests
-
-################################################################################
-
-FROM deps as package
-
-WORKDIR /build
-
+WORKDIR /opt/app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
 COPY ./src src/
-RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-    --mount=type=cache,target=D:/Deps \
-    ./mvnw package -DskipTests 
-
 
 ################################################################################
 
-FROM eclipse-temurin:17-jre-jammy AS final
+FROM builder as package
 
-WORKDIR /build
+WORKDIR /opt/app
 
-COPY target/*.jar app.jar
+RUN --mount=type=bind,source=pom.xml,target=pom.xml \
+    --mount=type=cache,target=/root/.m2 \
+    ./mvnw clean install -DskipTests 
 
+################################################################################ 
+
+FROM eclipse-temurin:17-jre-jammy
+WORKDIR /opt/app
 EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=package /opt/app/target/*.jar /opt/app/app.jar
+ENTRYPOINT ["java", "-jar", "/opt/app/app.jar" ]
