@@ -1,0 +1,7 @@
+name: template compose file for redis
+
+services:
+  redis:
+    image: "redis:7.4"
+    ports:
+      - "6379:6379"
