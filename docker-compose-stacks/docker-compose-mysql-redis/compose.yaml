@@ -1,4 +1,4 @@
-name: template compose file for mysql and redis
+name: mysql_redis
 
 services:
     redis:

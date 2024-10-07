@@ -1,4 +1,4 @@
-name: template compose file for redis
+name: redis
 
 services:
   redis:

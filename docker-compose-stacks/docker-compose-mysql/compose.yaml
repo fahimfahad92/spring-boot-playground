@@ -1,4 +1,4 @@
-name: template compose file for mysql
+name: mysql
 
 services:
     db:
