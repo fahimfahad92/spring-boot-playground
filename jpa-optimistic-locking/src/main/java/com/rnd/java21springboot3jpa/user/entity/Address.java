@@ -21,6 +21,10 @@ public class Address {
     @Column(name = "user_id")
     Long userId;
 
+    @OneToOne(mappedBy = "address")
+    private User user;
+
+
     public Address(String city, String area, Long userId) {
         this.city = city;
         this.area = area;
@@ -29,6 +33,14 @@ public class Address {
 
     public Address() {
 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

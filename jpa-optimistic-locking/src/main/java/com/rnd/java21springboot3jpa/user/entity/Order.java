@@ -1,6 +1,7 @@
 package com.rnd.java21springboot3jpa.user.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
 
 import java.math.BigDecimal;
 
@@ -96,7 +97,6 @@ public class Order {
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", totalPrice=" + totalPrice +
-                ", userId=" + userId +
                 '}';
     }
 }

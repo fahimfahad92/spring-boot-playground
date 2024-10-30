@@ -6,6 +6,7 @@ import com.rnd.java21springboot3jpa.user.db.UserRepository;
 import com.rnd.java21springboot3jpa.user.entity.Address;
 import com.rnd.java21springboot3jpa.user.entity.Order;
 import com.rnd.java21springboot3jpa.user.entity.User;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
     private static final Logger logger =
@@ -37,22 +39,62 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Address updateAddress(Long userId, String city, String area) {
+    public Address updateAddress(User user, String city, String area) {
         logger.info("Updating address");
-        Address address = new Address(city, area, userId);
-        return addressRepository.save(address);
+        Address address = new Address(city, area, user.getId());
+        user.setAddress(address);
+        userRepository.save(user);
+        return user.getAddress();
     }
 
-    public Order createOrder(String itemName, int quantity, BigDecimal price, BigDecimal totalPrice, Long userId) {
-        Order order = new Order(itemName, quantity, price, totalPrice, userId);
+    public Order createOrder(String itemName, int quantity, BigDecimal price, BigDecimal totalPrice, User user) {
+        Order order = new Order(itemName, quantity, price, totalPrice, user.getId());
         return orderRepository.save(order);
     }
+
 
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
+    public Address getAddressByUserId(Long userId) {
+        return addressRepository.findByUserId(userId);
+    }
+
     public List<Order> getOrders(Long userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    @Transactional
+    public User process() {
+        User user = createUser("Fahim", "Fahad");
+        Address address = updateAddress(user, "Dhaka", "Dhaka");
+        logger.info("Updating address done");
+
+        Order order1 = createOrder("Item1", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
+        Order order2 = createOrder("Item2", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
+
+        return user;
+    }
+
+    @Transactional
+    public void getData() {
+        User updatedUser = getUserById(1L);
+
+        logger.info("Getting address");
+        Address updatedAddress = getAddressByUserId(updatedUser.getId());
+        logger.info("Getting address done");
+
+        logger.info("Getting orders");
+        List<Order> orders = getOrders(updatedUser.getId());
+        logger.info("Getting orders done");
+
+        deleteUser(updatedUser.getId());
+
+        logger.info("DB operation completed");
     }
 }

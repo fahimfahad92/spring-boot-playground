@@ -21,12 +21,8 @@ public class User {
     String lastName;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "user_id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private List<Order> orders;
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
@@ -36,9 +32,6 @@ public class User {
     public User() {
     }
 
-    public void updateAddress(Address address) {
-        this.address = address;
-    }
 
     public Long getId() {
         return id;
@@ -72,13 +65,13 @@ public class User {
         this.address = address;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+//    public List<Order> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Order> orders) {
+//        this.orders = orders;
+//    }
 
     @Override
     public String toString() {
