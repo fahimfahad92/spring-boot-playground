@@ -8,15 +8,15 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Table(name = "address")
 public class Address {
 
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  Long id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    Long id;
 
-  @Column(name = "city")
-  String city;
+    @Column(name = "city")
+    String city;
 
-  @Column(name = "area")
-  String area;
+    @Column(name = "area")
+    String area;
 
     @Column(name = "user_id")
     Long userId;
@@ -61,5 +61,15 @@ public class Address {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", area='" + area + '\'' +
+                ", userId=" + userId +
+                '}';
     }
 }
