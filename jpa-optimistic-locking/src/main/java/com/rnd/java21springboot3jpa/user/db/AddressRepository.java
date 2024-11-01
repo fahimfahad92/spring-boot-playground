@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
-    Address findByUserId(Long userId);
+  Address findByUserId(Long userId);
 }

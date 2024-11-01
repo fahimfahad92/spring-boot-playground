@@ -1,102 +1,130 @@
 package com.rnd.java21springboot3jpa.user.entity;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.time.Instant;
 
 @Entity
 @Table(name = "user_order")
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  Long id;
 
-    @Column(name = "item_name")
-    String itemName;
+  @Column(name = "item_name")
+  String itemName;
 
-    @Column(name = "quantity")
-    int quantity;
+  @Column(name = "quantity")
+  int quantity;
 
-    @Column(name = "price")
-    BigDecimal price;
+  @Column(name = "price")
+  BigDecimal price;
 
-    @Column(name = "total_price")
-    BigDecimal totalPrice;
+  @Column(name = "total_price")
+  BigDecimal totalPrice;
 
-    @Column(name = "user_id")
-    Long userId;
+  @Column(name = "user_id")
+  Long userId;
 
-    public Order(String itemName, int quantity, BigDecimal price, BigDecimal totalPrice, Long userId) {
-        this.itemName = itemName;
-        this.quantity = quantity;
-        this.price = price;
-        this.totalPrice = totalPrice;
-        this.userId = userId;
-    }
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private Instant createdAt;
 
-    public Order() {
-    }
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private Instant updatedAt;
 
-    public Long getId() {
-        return id;
-    }
+  @Column(name = "created_by")
+  @CreatedBy
+  public String createdBy;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  @Column(name = "updated_by")
+  @LastModifiedBy
+  private String updatedBy;
 
-    public String getItemName() {
-        return itemName;
-    }
+  public Order(
+      String itemName, int quantity, BigDecimal price, BigDecimal totalPrice, Long userId) {
+    this.itemName = itemName;
+    this.quantity = quantity;
+    this.price = price;
+    this.totalPrice = totalPrice;
+    this.userId = userId;
+  }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
+  public Order() {}
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+  public String getItemName() {
+    return itemName;
+  }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+  public void setItemName(String itemName) {
+    this.itemName = itemName;
+  }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 
-    public Long getUserId() {
-        return userId;
-    }
+  public BigDecimal getPrice() {
+    return price;
+  }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", itemName='" + itemName + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", totalPrice=" + totalPrice +
-                '}';
-    }
+  public BigDecimal getTotalPrice() {
+    return totalPrice;
+  }
+
+  public void setTotalPrice(BigDecimal totalPrice) {
+    this.totalPrice = totalPrice;
+  }
+
+  public Long getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
+
+  @Override
+  public String toString() {
+    return "Order{"
+        + "id="
+        + id
+        + ", itemName='"
+        + itemName
+        + '\''
+        + ", quantity="
+        + quantity
+        + ", price="
+        + price
+        + ", totalPrice="
+        + totalPrice
+        + '}';
+  }
 }

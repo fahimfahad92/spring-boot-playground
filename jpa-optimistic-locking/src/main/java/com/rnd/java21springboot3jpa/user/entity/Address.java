@@ -1,87 +1,114 @@
 package com.rnd.java21springboot3jpa.user.entity;
 
-import jakarta.persistence.*;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.Instant;
 
 @Entity
 @Table(name = "address")
+@EntityListeners(AuditingEntityListener.class)
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  Long id;
 
-    @Column(name = "city")
-    String city;
+  @Column(name = "city")
+  String city;
 
-    @Column(name = "area")
-    String area;
+  @Column(name = "area")
+  String area;
 
-    @Column(name = "user_id")
-    Long userId;
+  @Column(name = "user_id")
+  Long userId;
 
-    @OneToOne(mappedBy = "address")
-    private User user;
+  @OneToOne(mappedBy = "address")
+  private User user;
 
+  @Column(name = "created_at")
+  @CreationTimestamp
+  private Instant createdAt;
 
-    public Address(String city, String area, Long userId) {
-        this.city = city;
-        this.area = area;
-        this.userId = userId;
-    }
+  @Column(name = "updated_at")
+  @UpdateTimestamp
+  private Instant updatedAt;
 
-    public Address() {
+  @Column(name = "created_by")
+  @CreatedBy
+  public String createdBy;
 
-    }
+  @Column(name = "updated_by")
+  @LastModifiedBy
+  private String updatedBy;
 
-    public User getUser() {
-        return user;
-    }
+  public Address(String city, String area, Long userId) {
+    this.city = city;
+    this.area = area;
+    this.userId = userId;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  public Address() {}
 
-    public Long getId() {
-        return id;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public String getArea() {
-        return area;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public void setArea(String area) {
-        this.area = area;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public Long getUserId() {
-        return userId;
-    }
+  public String getArea() {
+    return area;
+  }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+  public void setArea(String area) {
+    this.area = area;
+  }
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", area='" + area + '\'' +
-                ", userId=" + userId +
-                '}';
-    }
+  public Long getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
+
+  @Override
+  public String toString() {
+    return "Address{"
+        + "id="
+        + id
+        + ", city='"
+        + city
+        + '\''
+        + ", area='"
+        + area
+        + '\''
+        + ", userId="
+        + userId
+        + '}';
+  }
 }

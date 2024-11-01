@@ -1,84 +1,101 @@
 package com.rnd.java21springboot3jpa.user.entity;
 
-import jakarta.persistence.*;
-
-import java.util.List;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
+
+import com.rnd.java21springboot3jpa.user.db.AuditorResolver;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.Instant;
 
 @Entity
 @Table(name = "user")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  Long id;
 
-    @Column(name = "first_name")
-    String firstName;
+  @Column(name = "first_name")
+  String firstName;
 
-    @Column(name = "last_name")
-    String lastName;
+  @Column(name = "last_name")
+  String lastName;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
+  private Address address;
 
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+  @Column(name = "created_at")
+  @CreationTimestamp
+  private Instant createdAt;
 
-    public User() {
-    }
+  @Column(name = "updated_at")
+  @UpdateTimestamp
+  private Instant updatedAt;
 
+  @Column(name = "created_by")
+  @CreatedBy
+  public String createdBy;
 
-    public Long getId() {
-        return id;
-    }
+  @Column(name = "updated_by")
+  @LastModifiedBy
+  private String updatedBy;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public User(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public User() {}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public Address getAddress() {
-        return address;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-//    public List<Order> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(List<Order> orders) {
-//        this.orders = orders;
-//    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName +
-                ", lastName='" + lastName +
-                '}';
-    }
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address address) {
+    this.address = address;
+  }
+
+  //    public List<Order> getOrders() {
+  //        return orders;
+  //    }
+  //
+  //    public void setOrders(List<Order> orders) {
+  //        this.orders = orders;
+  //    }
+
+  @Override
+  public String toString() {
+    return "User{" + "id=" + id + ", firstName='" + firstName + ", lastName='" + lastName + '}';
+  }
 }
