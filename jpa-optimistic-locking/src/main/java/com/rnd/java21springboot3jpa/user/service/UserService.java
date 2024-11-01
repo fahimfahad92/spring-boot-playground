@@ -1,9 +1,9 @@
 package com.rnd.java21springboot3jpa.user.service;
 
-import com.rnd.java21springboot3jpa.user.db.AddressRepository;
-import com.rnd.java21springboot3jpa.user.db.OrderRepository;
-import com.rnd.java21springboot3jpa.user.db.UserOrderSummary;
-import com.rnd.java21springboot3jpa.user.db.UserRepository;
+import com.rnd.java21springboot3jpa.user.db.repository.AddressRepository;
+import com.rnd.java21springboot3jpa.user.db.repository.OrderRepository;
+import com.rnd.java21springboot3jpa.user.entity.UserOrderSummary;
+import com.rnd.java21springboot3jpa.user.db.repository.UserRepository;
 import com.rnd.java21springboot3jpa.user.entity.Address;
 import com.rnd.java21springboot3jpa.user.entity.Order;
 import com.rnd.java21springboot3jpa.user.entity.User;
@@ -75,15 +75,20 @@ public class UserService {
   }
 
   @Transactional
-  public User process() {
+  public User prepareData() {
     User user = createUser("Fahim", "Fahad");
     Address address = updateAddress(user, "Dhaka", "Dhaka");
     logger.info("Updating address done");
 
-    Order order1 = createOrder("Item1", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
-    Order order2 = createOrder("Item2", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
+//    Order order1 = createOrder("Item1", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
+//    Order order2 = createOrder("Item2", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
 
     return user;
+  }
+
+  @Transactional
+  public void createOrder(User user, int orderId) {
+    createOrder("Item " + orderId, 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
   }
 
   @Transactional

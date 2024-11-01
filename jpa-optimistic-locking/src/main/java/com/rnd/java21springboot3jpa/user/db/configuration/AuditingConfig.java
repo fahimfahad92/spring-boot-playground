@@ -1,4 +1,4 @@
-package com.rnd.java21springboot3jpa.user.db;
+package com.rnd.java21springboot3jpa.user.db.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

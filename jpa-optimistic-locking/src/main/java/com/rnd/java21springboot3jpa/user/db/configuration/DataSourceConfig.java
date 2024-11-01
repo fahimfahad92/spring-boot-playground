@@ -1,4 +1,4 @@
-package com.rnd.java21springboot3jpa.user.db;
+package com.rnd.java21springboot3jpa.user.db.configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -64,10 +64,10 @@ public class DataSourceConfig {
     Properties configProps = new Properties();
     configProps.put("jdbcUrl", dataSourceJdbcUrl);
     configProps.put("poolName", poolName);
-    configProps.put("maximumPoolSize", maximumPoolSize);
-    configProps.put("minimumIdle", minimumIdle);
     configProps.put("connectionTimeout", connectionTimeout);
     configProps.put("idleTimeout", idleTimeout);
+    configProps.put("maximumPoolSize", maximumPoolSize);
+    configProps.put("minimumIdle", minimumIdle);
     configProps.put("maxLifetime", maxLifetime);
     configProps.put("dataSourceProperties", dsProps);
 
