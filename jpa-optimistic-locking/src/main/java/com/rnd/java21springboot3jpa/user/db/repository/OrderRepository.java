@@ -1,7 +1,9 @@
-package com.rnd.java21springboot3jpa.user.db;
+package com.rnd.java21springboot3jpa.user.db.repository;
 
 import com.rnd.java21springboot3jpa.user.entity.Order;
 import java.util.List;
+
+import com.rnd.java21springboot3jpa.user.entity.UserOrderSummary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -2,7 +2,6 @@ package com.rnd.java21springboot3jpa.user.entity;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-import com.rnd.java21springboot3jpa.user.db.AuditorResolver;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
