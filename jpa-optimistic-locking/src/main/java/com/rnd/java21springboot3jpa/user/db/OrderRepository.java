@@ -12,9 +12,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
   void deleteByUserId(Long userId);
 
-  @Query(
-      value =
-          "select user_id as userId, sum(total_price) as totalPurchase from user_order group by user_id",
-      nativeQuery = true)
+  @Query("select userId as userId, sum(totalPrice) as totalPurchase from Order group by userId")
   List<UserOrderSummary> getUserOrderSummary();
+
+  @Query(
+      "select userId as userId, sum(totalPrice) as totalPurchase from Order where userId = :userId group by userId")
+  UserOrderSummary getUserOrderSummaryForUser(Long userId);
 }
