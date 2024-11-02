@@ -75,6 +75,18 @@ public class UserService {
   }
 
   @Transactional
+  public boolean createOrder(Long userId, Long orderId) {
+    User user = getUserById(userId);
+    createOrder(user, orderId);
+    return true;
+  }
+
+  @Transactional
+  public void createOrder(User user, Long orderId) {
+    createOrder("Item " + orderId, 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
+  }
+
+  @Transactional
   public User prepareData() {
     User user = createUser("Fahim", "Fahad");
     Address address = updateAddress(user, "Dhaka", "Dhaka");
@@ -84,11 +96,6 @@ public class UserService {
 //    Order order2 = createOrder("Item2", 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
 
     return user;
-  }
-
-  @Transactional
-  public void createOrder(User user, int orderId) {
-    createOrder("Item " + orderId, 1, BigDecimal.valueOf(50), BigDecimal.valueOf(50), user);
   }
 
   @Transactional
