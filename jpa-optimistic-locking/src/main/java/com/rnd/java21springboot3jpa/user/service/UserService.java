@@ -126,13 +126,13 @@ public class UserService {
 
     List<UserOrderSummary> orderSummaries = orderRepository.getUserOrderSummary();
 
-    orderSummaries.forEach(os -> System.out.println(os.getUserId() + " " + os.getTotalPurchase()));
+    orderSummaries.forEach(os -> logger.info("{} {}", os.getUserId(), os.getTotalPurchase()));
 
     UserOrderSummary userOrderSummary =
         orderRepository.getUserOrderSummaryForUser(updatedUser.getId());
 
-    System.out.println(
-        "For user " + userOrderSummary.getUserId() + " " + userOrderSummary.getTotalPurchase());
+    logger.info(
+        "For user {} {}", userOrderSummary.getUserId(), userOrderSummary.getTotalPurchase());
 
     //    deleteUserOrder(updatedUser.getId());
     //    deleteUser(updatedUser.getId());

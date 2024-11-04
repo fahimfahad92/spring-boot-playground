@@ -1,5 +1,6 @@
 package com.rnd.java21springboot3jpa;
 
+import com.rnd.java21springboot3jpa.user.entity.User;
 import com.rnd.java21springboot3jpa.user.service.UserService;
 import io.micrometer.common.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ class StartupApplicationListenerExample implements ApplicationListener<ContextRe
 
   @Override
   public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
-    //        User user = userService.prepareData();
-    //        userService.getData(user);
+    User user = userService.prepareData();
+    userService.getData(user);
   }
 }
