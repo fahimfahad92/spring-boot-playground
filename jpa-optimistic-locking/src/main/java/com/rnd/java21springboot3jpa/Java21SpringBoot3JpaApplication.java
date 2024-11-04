@@ -2,7 +2,6 @@ package com.rnd.java21springboot3jpa;
 
 import com.rnd.java21springboot3jpa.user.service.UserService;
 import io.micrometer.common.lang.NonNull;
-import java.util.concurrent.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

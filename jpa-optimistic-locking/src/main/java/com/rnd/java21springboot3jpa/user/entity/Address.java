@@ -3,17 +3,12 @@ package com.rnd.java21springboot3jpa.user.entity;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.persistence.*;
-import java.time.Instant;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "address")
 @EntityListeners(AuditingEntityListener.class)
-public class Address extends BaseEntity{
+public class Address extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
