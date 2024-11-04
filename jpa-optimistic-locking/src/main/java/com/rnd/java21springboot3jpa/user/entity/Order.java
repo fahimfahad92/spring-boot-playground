@@ -3,19 +3,18 @@ package com.rnd.java21springboot3jpa.user.entity;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
+import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-
 @Entity
 @Table(name = "user_order")
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class Order extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
@@ -35,22 +34,6 @@ public class Order {
 
   @Column(name = "user_id")
   Long userId;
-
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private Instant createdAt;
-
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Instant updatedAt;
-
-  @Column(name = "created_by")
-  @CreatedBy
-  public String createdBy;
-
-  @Column(name = "updated_by")
-  @LastModifiedBy
-  private String updatedBy;
 
   public Order(
       String itemName, int quantity, BigDecimal price, BigDecimal totalPrice, Long userId) {

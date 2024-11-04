@@ -3,18 +3,12 @@ package com.rnd.java21springboot3jpa.user.entity;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.Instant;
 
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = IDENTITY)
@@ -29,22 +23,6 @@ public class User {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
-
-  @Column(name = "created_at")
-  @CreationTimestamp
-  private Instant createdAt;
-
-  @Column(name = "updated_at")
-  @UpdateTimestamp
-  private Instant updatedAt;
-
-  @Column(name = "created_by")
-  @CreatedBy
-  public String createdBy;
-
-  @Column(name = "updated_by")
-  @LastModifiedBy
-  private String updatedBy;
 
   public User(String firstName, String lastName) {
     this.firstName = firstName;

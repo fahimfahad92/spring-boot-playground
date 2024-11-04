@@ -14,7 +14,7 @@ public class AuditorResolver implements AuditorAware<String> {
 
   @Override
   public Optional<String> getCurrentAuditor() {
-//    logger.info("Getting auditor user");
+    //    logger.info("Getting auditor user");
     // TODO: GET current user from security context
     return Optional.of("Admin " + Instant.now().toString());
   }

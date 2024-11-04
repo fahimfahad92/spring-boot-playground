@@ -41,7 +41,7 @@ class StartupApplicationListenerExample implements ApplicationListener<ContextRe
 
   @Override
   public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
-    //    User user = userService.prepareData();
-    //    userService.getData(user);
+    //        User user = userService.prepareData();
+    //        userService.getData(user);
   }
 }

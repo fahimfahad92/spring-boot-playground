@@ -46,3 +46,15 @@ create table user_order
     constraint FK_user_id
         foreign key (user_id) references user (id)
 );
+
+create table user_balance
+(
+    balance decimal(38, 2) null,
+    id      bigint auto_increment
+        primary key,
+    user_id bigint         null,
+    version bigint         not null,
+    constraint FK_balance
+        foreign key (user_id) references user (id)
+);
+
