@@ -146,6 +146,9 @@ public class UserService {
     Address address = updateAddress(user, "Dhaka", "Dhaka");
     logger.info("Updating address done");
 
+    createOrderForLoadTest(user.getId(),1L);
+    createOrderForLoadTest(user.getId(),2L);
+
     UserBalance userBalance = new UserBalance(BigDecimal.valueOf(10000), user.getId());
     balanceRepository.save(userBalance);
     return user;
