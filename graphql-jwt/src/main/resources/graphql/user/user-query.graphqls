@@ -1,0 +1,15 @@
+extend type Query {
+    users: [User]
+    usersByAdmin: [User]
+    userByID (id: Int): User
+    securedUserByID (id: Int): User
+    userAddress(userId: Int): Address
+}
+
+extend type Mutation {
+    addUser(name: String) : User
+    updateAddress(addressRequest: AddressRequest): User
+}
+
+
+
