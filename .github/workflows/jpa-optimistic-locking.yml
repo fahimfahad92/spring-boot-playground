@@ -1,0 +1,16 @@
+name: jpa-optimistic-locking
+
+on:
+  push:
+    branches: [main]
+    paths: ["jpa-optimistic-locking/**", ".github/workflows/jpa-optimistic-locking.yml", ".github/workflows/maven-build.yml"]
+  pull_request:
+    paths: ["jpa-optimistic-locking/**", ".github/workflows/jpa-optimistic-locking.yml", ".github/workflows/maven-build.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/maven-build.yml
+    with:
+      project: jpa-optimistic-locking
+      compose-file: docker-compose/compose.yaml

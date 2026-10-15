@@ -1,0 +1,15 @@
+name: graphql-jwt
+
+on:
+  push:
+    branches: [main]
+    paths: ["graphql-jwt/**", ".github/workflows/graphql-jwt.yml", ".github/workflows/maven-build.yml"]
+  pull_request:
+    paths: ["graphql-jwt/**", ".github/workflows/graphql-jwt.yml", ".github/workflows/maven-build.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/maven-build.yml
+    with:
+      project: graphql-jwt
