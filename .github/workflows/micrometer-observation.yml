@@ -1,0 +1,15 @@
+name: micrometer-observation
+
+on:
+  push:
+    branches: [main]
+    paths: ["micrometer-observation/**", ".github/workflows/micrometer-observation.yml", ".github/workflows/maven-build.yml"]
+  pull_request:
+    paths: ["micrometer-observation/**", ".github/workflows/micrometer-observation.yml", ".github/workflows/maven-build.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/maven-build.yml
+    with:
+      project: micrometer-observation
